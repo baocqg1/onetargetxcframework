@@ -1,0 +1,11 @@
+framework module OneTargetMobileSDK {
+  umbrella header "onetargetmobilesdk.h"
+
+  export *
+  module * { export * }
+}
+
+module OneTargetMobileSDK.Swift {
+  header "OneTargetMobileSDK-Swift.h"
+  requires objc
+}

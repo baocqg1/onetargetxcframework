@@ -1,0 +1,582 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.7.1 (swiftlang-5.7.1.135.3 clang-1400.0.29.51)
+// swift-module-flags: -target arm64-apple-ios11.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name OneTargetMobileSDK
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import Foundation
+import OneSignal
+@_exported import OneTargetMobileSDK
+import Swift
+import UIKit
+import WebKit
+import _Concurrency
+import _StringProcessing
+public enum JSON : Swift.Equatable {
+  case null
+  case bool(Swift.Bool)
+  case number(Foundation.Decimal)
+  case string(Swift.String)
+  case array([OneTargetMobileSDK.JSON])
+  case object([Swift.String : OneTargetMobileSDK.JSON])
+  public init(_ object: [Swift.String : Any]) throws
+  public init<T>(with value: T) throws where T : Swift.Decodable, T : Swift.Encodable
+  public init(_ value: Any) throws
+  public static func == (a: OneTargetMobileSDK.JSON, b: OneTargetMobileSDK.JSON) -> Swift.Bool
+}
+extension OneTargetMobileSDK.JSON : Swift.Codable {
+  public func encode(to encoder: Swift.Encoder) throws
+  public init(from decoder: Swift.Decoder) throws
+}
+extension Swift.Encodable {
+  public func prettyPrint() -> Swift.String
+  public func toString() -> Swift.String
+  public func toString(pretty: Swift.Bool) -> Swift.String
+}
+extension OneTargetMobileSDK.JSON {
+  public func codableValue<T>() -> T? where T : Swift.Decodable, T : Swift.Encodable
+  public var boolValue: Swift.Bool? {
+    get
+  }
+  public var decimalValue: Foundation.Decimal? {
+    get
+  }
+  public var intValue: Swift.Int? {
+    get
+  }
+  public var uintValue: Swift.UInt? {
+    get
+  }
+  public var floatValue: Swift.Float? {
+    get
+  }
+  public var doubleValue: Swift.Double? {
+    get
+  }
+  public var stringValue: Swift.String? {
+    get
+  }
+  public var arrayValue: [Any]? {
+    get
+  }
+  public var dictionaryValue: [Swift.String : Any]? {
+    get
+  }
+}
+extension OneTargetMobileSDK.JSON {
+  public func mapTransform(_ keys: [Swift.String : Swift.String], valueTransform: ((_ key: Swift.String, _ value: Any) -> Any)? = nil) throws -> OneTargetMobileSDK.JSON
+  public func add(value: Any) throws -> OneTargetMobileSDK.JSON?
+  public func add(value: Any, forKey key: Swift.String) throws -> OneTargetMobileSDK.JSON?
+  public func remove(key: Swift.String) throws -> OneTargetMobileSDK.JSON?
+  public subscript(index: Swift.Int) -> OneTargetMobileSDK.JSON? {
+    get
+  }
+  public subscript(key: Swift.String) -> OneTargetMobileSDK.JSON? {
+    get
+  }
+  public subscript<T>(keyPath keyPath: OneTargetMobileSDK.KeyPath) -> T? where T : Swift.Decodable, T : Swift.Encodable {
+    get
+    set(newValue)
+  }
+  public func value<T>(forKeyPath keyPath: OneTargetMobileSDK.KeyPath) -> T? where T : Swift.Decodable, T : Swift.Encodable
+  public mutating func setValue<T>(_ value: T?, forKeyPath keyPath: OneTargetMobileSDK.KeyPath) where T : Swift.Decodable, T : Swift.Encodable
+}
+extension Swift.Dictionary where Key == Swift.String, Value == Any {
+  public func mapTransform(_ keys: [Swift.String : Swift.String], valueTransform: ((_ key: Key, _ value: Value) -> Any)? = nil) throws -> [Key : Value]
+}
+public protocol LogTarget {
+  func parseLog(_ log: OneTargetMobileSDK.LogMessage)
+  func flush()
+}
+public enum LogFilterKind : Swift.Int {
+  case error
+  case warning
+  case debug
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public struct LoggingType : Swift.Hashable {
+  public enum LogDestination {
+    case log
+    case metric
+    case history
+    public static func == (a: OneTargetMobileSDK.LoggingType.LogDestination, b: OneTargetMobileSDK.LoggingType.LogDestination) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public init(types: [OneTargetMobileSDK.LoggingType.LogDestination])
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: OneTargetMobileSDK.LoggingType, b: OneTargetMobileSDK.LoggingType) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public protocol LogMessage {
+  var kind: OneTargetMobileSDK.LogFilterKind { get }
+  var title: Swift.String? { get }
+  var message: Swift.String { get }
+  var event: OneTargetMobileSDK.RawEvent? { get }
+  var function: Swift.String? { get }
+  var line: Swift.Int? { get }
+  var logType: OneTargetMobileSDK.LoggingType.LogDestination { get }
+  var dateTime: Foundation.Date { get }
+}
+public enum MetricType : Swift.Int {
+  case counter
+  case gauge
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+extension OneTargetMobileSDK.OneTargetAnalytics {
+  public func log(message: Swift.String, kind: OneTargetMobileSDK.LogFilterKind? = nil, function: Swift.String = #function, line: Swift.Int = #line)
+}
+extension OneTargetMobileSDK.OneTargetAnalytics {
+  public func add(target: OneTargetMobileSDK.LogTarget, type: OneTargetMobileSDK.LoggingType)
+  public func logFlush()
+}
+public protocol Action {
+  associatedtype StateType : OneTargetMobileSDK.IState
+  func reduce(state: Self.StateType) -> Self.StateType
+}
+public protocol AsyncAction {
+  associatedtype StateType : OneTargetMobileSDK.IState
+  associatedtype ResultType
+  func operation(state: Self.StateType, completion: @escaping (Self.ResultType?) -> Swift.Void)
+  func reduce(state: Self.StateType, operationResult: Self.ResultType?) -> Self.StateType
+}
+public struct DestinationMetadata : Swift.Codable {
+  public func encode(to encoder: Swift.Encoder) throws
+  public init(from decoder: Swift.Decoder) throws
+}
+public protocol RawEvent : Swift.Decodable, Swift.Encodable {
+  var type: Swift.String? { get set }
+  var anonymousId: Swift.String? { get set }
+  var messageId: Swift.String? { get set }
+  var userId: Swift.String? { get set }
+  var timestamp: Swift.String? { get set }
+  var context: OneTargetMobileSDK.JSON? { get set }
+  var integrations: OneTargetMobileSDK.JSON? { get set }
+  var metrics: [OneTargetMobileSDK.JSON]? { get set }
+  var _metadata: OneTargetMobileSDK.DestinationMetadata? { get set }
+}
+public struct TrackEvent : OneTargetMobileSDK.RawEvent {
+  public var type: Swift.String?
+  public var anonymousId: Swift.String?
+  public var messageId: Swift.String?
+  public var userId: Swift.String?
+  public var timestamp: Swift.String?
+  public var context: OneTargetMobileSDK.JSON?
+  public var integrations: OneTargetMobileSDK.JSON?
+  public var metrics: [OneTargetMobileSDK.JSON]?
+  public var _metadata: OneTargetMobileSDK.DestinationMetadata?
+  public var event: Swift.String
+  public var properties: OneTargetMobileSDK.JSON?
+  public init(event: Swift.String, properties: OneTargetMobileSDK.JSON?)
+  public init(existing: OneTargetMobileSDK.TrackEvent)
+  public func encode(to encoder: Swift.Encoder) throws
+  public init(from decoder: Swift.Decoder) throws
+}
+public struct MonitorEvent : OneTargetMobileSDK.RawEvent {
+  public var type: Swift.String?
+  public var anonymousId: Swift.String?
+  public var messageId: Swift.String?
+  public var userId: Swift.String?
+  public var timestamp: Swift.String?
+  public var context: OneTargetMobileSDK.JSON?
+  public var integrations: OneTargetMobileSDK.JSON?
+  public var metrics: [OneTargetMobileSDK.JSON]?
+  public var _metadata: OneTargetMobileSDK.DestinationMetadata?
+  public var identityId: OneTargetMobileSDK.JSON
+  public var eventName: Swift.String
+  public var eventData: OneTargetMobileSDK.JSON
+  public var profile: [OneTargetMobileSDK.JSON]?
+  public init(identityId: OneTargetMobileSDK.JSON, eventName: Swift.String, eventData: OneTargetMobileSDK.JSON, profile: [OneTargetMobileSDK.JSON]?)
+  public init(existing: OneTargetMobileSDK.MonitorEvent)
+  public func encode(to encoder: Swift.Encoder) throws
+  public init(from decoder: Swift.Decoder) throws
+}
+public struct BasicHandler {
+}
+public struct KeyPath {
+  public init(_ string: Swift.String)
+}
+extension OneTargetMobileSDK.KeyPath : Swift.ExpressibleByStringLiteral {
+  public init(stringLiteral value: Swift.String)
+  public init(unicodeScalarLiteral value: Swift.String)
+  public init(extendedGraphemeClusterLiteral value: Swift.String)
+  public typealias ExtendedGraphemeClusterLiteralType = Swift.String
+  public typealias StringLiteralType = Swift.String
+  public typealias UnicodeScalarLiteralType = Swift.String
+}
+extension Swift.Dictionary where Key : Swift.StringProtocol {
+  public subscript(keyPath keyPath: OneTargetMobileSDK.KeyPath) -> Any? {
+    get
+    set
+  }
+  public subscript(keyPath keyPath: OneTargetMobileSDK.KeyPath, reference reference: Any?) -> Any? {
+    get
+    set
+  }
+  public func exists(keyPath: OneTargetMobileSDK.KeyPath, reference: Any? = nil) -> Swift.Bool
+}
+public struct Queue<T> {
+  public mutating func enqueue(_ element: T)
+  public mutating func dequeue() -> T?
+  public var isEmpty: Swift.Bool {
+    get
+  }
+  public func peek() -> T?
+}
+extension OneTargetMobileSDK.Queue : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+}
+extension OneTargetMobileSDK.OneTargetAnalytics : OneTargetMobileSDK.Subscriber {
+}
+public struct Settings : Swift.Codable {
+  public var integrations: OneTargetMobileSDK.JSON?
+  public var plan: OneTargetMobileSDK.JSON?
+  public var edgeFunction: OneTargetMobileSDK.JSON?
+  public var middlewareSettings: OneTargetMobileSDK.JSON?
+  public init(writeKey: Swift.String, apiHost: Swift.String)
+  public init(writeKey: Swift.String)
+  public init(from decoder: Swift.Decoder) throws
+  public func integrationSettings(forKey key: Swift.String) -> [Swift.String : Any]?
+  public func integrationSettings<T>(forKey key: Swift.String) -> T? where T : Swift.Decodable, T : Swift.Encodable
+  public func integrationSettings<T>(forPlugin plugin: OneTargetMobileSDK.DestinationPlugin) -> T? where T : Swift.Decodable, T : Swift.Encodable
+  public func hasIntegrationSettings(forPlugin plugin: OneTargetMobileSDK.DestinationPlugin) -> Swift.Bool
+  public func hasIntegrationSettings(key: Swift.String) -> Swift.Bool
+  public func encode(to encoder: Swift.Encoder) throws
+}
+extension OneTargetMobileSDK.Settings : Swift.Equatable {
+  public static func == (lhs: OneTargetMobileSDK.Settings, rhs: OneTargetMobileSDK.Settings) -> Swift.Bool
+}
+@_hasMissingDesignatedInitializers public class HTTPClient {
+  @objc deinit
+}
+extension Foundation.URLRequest {
+  public func cURL(pretty: Swift.Bool = false) -> Swift.String
+}
+public typealias AdvertisingIdCallback = () -> Swift.String?
+public class Configuration {
+  public init(writeKey: Swift.String, flavor: Swift.String?)
+  public init(writeKey: Swift.String, flavor: Swift.String?, enableIAM: Swift.Bool)
+  @objc deinit
+}
+extension OneTargetMobileSDK.Configuration {
+  @discardableResult
+  public func oneTargetAppPushID(_ value: Swift.String) -> OneTargetMobileSDK.Configuration
+}
+extension OneTargetMobileSDK.Configuration {
+  @discardableResult
+  public func application(_ value: Any?) -> OneTargetMobileSDK.Configuration
+  @discardableResult
+  public func trackApplicationLifecycleEvents(_ enabled: Swift.Bool) -> OneTargetMobileSDK.Configuration
+  @discardableResult
+  public func trackDeeplinks(_ enabled: Swift.Bool) -> OneTargetMobileSDK.Configuration
+  @discardableResult
+  public func flushAt(_ count: Swift.Int) -> OneTargetMobileSDK.Configuration
+  @discardableResult
+  public func flushInterval(_ interval: Foundation.TimeInterval) -> OneTargetMobileSDK.Configuration
+  @discardableResult
+  public func defaultSettings(_ settings: OneTargetMobileSDK.Settings) -> OneTargetMobileSDK.Configuration
+  @discardableResult
+  public func autoAddOneTargetDestination(_ value: Swift.Bool) -> OneTargetMobileSDK.Configuration
+  @discardableResult
+  public func apiHost(_ value: Swift.String) -> OneTargetMobileSDK.Configuration
+}
+public typealias SubscriptionID = Swift.Int
+public class Store {
+  required public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+  public init()
+  @discardableResult
+  public func subscribe<T>(_ subscriber: OneTargetMobileSDK.Subscriber, initialState: Swift.Bool = false, queue: Dispatch.DispatchQueue = .main, handler: @escaping OneTargetMobileSDK.Handler<T>) -> OneTargetMobileSDK.SubscriptionID where T : OneTargetMobileSDK.IState
+  public func unsubscribe(identifier: OneTargetMobileSDK.SubscriptionID)
+  public func provide<T>(state: T) where T : OneTargetMobileSDK.IState
+  public func dispatch<T>(action: T) where T : OneTargetMobileSDK.Action
+  public func dispatch<T>(action: T) where T : OneTargetMobileSDK.AsyncAction
+  public func currentState<T>() -> T? where T : OneTargetMobileSDK.IState
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class OneTargetDestination : OneTargetMobileSDK.DestinationPlugin {
+  final public let type: OneTargetMobileSDK.PluginType
+  final public let key: Swift.String
+  final public let timeline: OneTargetMobileSDK.Timeline
+  public var analytics: OneTargetMobileSDK.OneTargetAnalytics? {
+    get
+    set
+  }
+  public func update(settings: OneTargetMobileSDK.Settings, type: OneTargetMobileSDK.UpdateType)
+  public func execute<T>(event: T?) -> T? where T : OneTargetMobileSDK.RawEvent
+  public func flush()
+  @objc deinit
+}
+extension OneTargetMobileSDK.OneTargetDestination : OneTargetMobileSDK.VersionedPlugin {
+  public static func version() -> Swift.String
+}
+@propertyWrapper public struct Atomic<T> {
+  public init(wrappedValue value: T)
+  public var wrappedValue: T {
+    get
+    set
+  }
+}
+public class Timeline : OneTargetMobileSDK.Subscriber {
+  public init()
+  @objc deinit
+}
+extension OneTargetMobileSDK.Plugin {
+  public func execute<T>(event: T?) -> T? where T : OneTargetMobileSDK.RawEvent
+  public func update(settings: OneTargetMobileSDK.Settings, type: OneTargetMobileSDK.UpdateType)
+  public func shutdown()
+}
+extension OneTargetMobileSDK.EventPlugin {
+  public func execute<T>(event: T?) -> T? where T : OneTargetMobileSDK.RawEvent
+  public func track(event: OneTargetMobileSDK.TrackEvent) -> OneTargetMobileSDK.TrackEvent?
+  public func trackNow(event: OneTargetMobileSDK.MonitorEvent) -> OneTargetMobileSDK.MonitorEvent?
+  public func flush()
+  public func reset()
+}
+extension OneTargetMobileSDK.DestinationPlugin {
+  public func execute<T>(event: T?) -> T? where T : OneTargetMobileSDK.RawEvent
+}
+extension OneTargetMobileSDK.LogTarget {
+  public func flush()
+}
+public enum PluginType : Swift.Int, Swift.CaseIterable {
+  case before
+  case enrichment
+  case destination
+  case after
+  case utility
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [OneTargetMobileSDK.PluginType]
+  public typealias RawValue = Swift.Int
+  public static var allCases: [OneTargetMobileSDK.PluginType] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public enum UpdateType {
+  case initial
+  case refresh
+  public static func == (a: OneTargetMobileSDK.UpdateType, b: OneTargetMobileSDK.UpdateType) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public protocol Plugin : AnyObject {
+  var type: OneTargetMobileSDK.PluginType { get }
+  var analytics: OneTargetMobileSDK.OneTargetAnalytics? { get set }
+  func configure(analytics: OneTargetMobileSDK.OneTargetAnalytics)
+  func update(settings: OneTargetMobileSDK.Settings, type: OneTargetMobileSDK.UpdateType)
+  func execute<T>(event: T?) -> T? where T : OneTargetMobileSDK.RawEvent
+  func shutdown()
+}
+public protocol EventPlugin : OneTargetMobileSDK.Plugin {
+  func track(event: OneTargetMobileSDK.TrackEvent) -> OneTargetMobileSDK.TrackEvent?
+  func trackNow(event: OneTargetMobileSDK.MonitorEvent) -> OneTargetMobileSDK.MonitorEvent?
+  func reset()
+  func flush()
+}
+public protocol DestinationPlugin : OneTargetMobileSDK.EventPlugin {
+  var key: Swift.String { get }
+  var timeline: OneTargetMobileSDK.Timeline { get }
+  func add(plugin: OneTargetMobileSDK.Plugin) -> OneTargetMobileSDK.Plugin
+  func apply(closure: (OneTargetMobileSDK.Plugin) -> Swift.Void)
+  func remove(plugin: OneTargetMobileSDK.Plugin)
+}
+public protocol UtilityPlugin : OneTargetMobileSDK.EventPlugin {
+}
+public protocol VersionedPlugin {
+  static func version() -> Swift.String
+}
+extension OneTargetMobileSDK.Plugin {
+  public func configure(analytics: OneTargetMobileSDK.OneTargetAnalytics)
+}
+extension OneTargetMobileSDK.DestinationPlugin {
+  public func configure(analytics: OneTargetMobileSDK.OneTargetAnalytics)
+  public func apply(closure: (OneTargetMobileSDK.Plugin) -> Swift.Void)
+  @discardableResult
+  public func add(plugin: OneTargetMobileSDK.Plugin) -> OneTargetMobileSDK.Plugin
+  public func remove(plugin: OneTargetMobileSDK.Plugin)
+}
+extension OneTargetMobileSDK.OneTargetAnalytics {
+  public func apply(closure: (OneTargetMobileSDK.Plugin) -> Swift.Void)
+  @discardableResult
+  public func add(plugin: OneTargetMobileSDK.Plugin) -> OneTargetMobileSDK.Plugin
+  public func remove(plugin: OneTargetMobileSDK.Plugin)
+  public func find<T>(pluginType: T.Type) -> T? where T : OneTargetMobileSDK.Plugin
+  public func find(key: Swift.String) -> OneTargetMobileSDK.DestinationPlugin?
+}
+public class OneTargetAnalytics {
+  public static var debugLogsEnabled: Swift.Bool {
+    get
+    set
+  }
+  public static let onetargetUserId: Swift.String?
+  public var timeline: OneTargetMobileSDK.Timeline
+  public init(configuration: OneTargetMobileSDK.Configuration, withLaunchOptions launchOptions: [Swift.AnyHashable : Any]?)
+  public func process(event: OneTargetMobileSDK.RawEvent)
+  @objc deinit
+}
+extension OneTargetMobileSDK.OneTargetAnalytics {
+  public var anonymousId: Swift.String {
+    get
+  }
+  public var userId: Swift.String? {
+    get
+  }
+  public func traits<T>() -> T? where T : Swift.Decodable, T : Swift.Encodable
+  public func traits() -> [Swift.String : Any]?
+  public func flush()
+  public func reset()
+  public func version() -> Swift.String
+  public static func version() -> Swift.String
+}
+extension OneTargetMobileSDK.OneTargetAnalytics {
+  public func settings() -> OneTargetMobileSDK.Settings?
+  public func manuallyEnableDestination(plugin: OneTargetMobileSDK.DestinationPlugin)
+}
+extension OneTargetMobileSDK.OneTargetAnalytics {
+  public var hasUnsentEvents: Swift.Bool {
+    get
+  }
+  public var pendingUploads: [Foundation.URL]? {
+    get
+  }
+  public func waitUntilStarted()
+}
+extension OneTargetMobileSDK.OneTargetAnalytics {
+  public class func didReceiveNotificationExtensionRequest(_ request: UserNotifications.UNNotificationRequest, with replacementContent: UserNotifications.UNMutableNotificationContent?, withContentHandler contentHandler: ((UserNotifications.UNNotificationContent) -> Swift.Void)!) -> UserNotifications.UNMutableNotificationContent!
+  public class func serviceExtensionTimeWillExpireRequest(_ request: UserNotifications.UNNotificationRequest, with replacementContent: UserNotifications.UNMutableNotificationContent?) -> UserNotifications.UNMutableNotificationContent!
+}
+public protocol IState {
+}
+public typealias Handler<T> = (T) -> Swift.Void where T : OneTargetMobileSDK.IState
+public protocol Subscriber : AnyObject {
+}
+extension OneTargetMobileSDK.OneTargetAnalytics {
+  public func trackEvent<P>(monitorEvent: P?) where P : Swift.Decodable, P : Swift.Encodable
+  public func trackBash<P>(name: Swift.String, properties: P?) where P : Swift.Decodable, P : Swift.Encodable
+}
+extension OneTargetMobileSDK.OneTargetAnalytics {
+  public func trackBash(name: Swift.String, properties: [Swift.String : Any]? = nil)
+  public func trackEvent(identityId: [Swift.String : Any], eventName: Swift.String, eventData: [Swift.String : Any], profile: [[Swift.String : Any]]?)
+}
+@objc(ONETARGETConfiguration) public class ObjCConfiguration : ObjectiveC.NSObject {
+  @objc public var application: Any? {
+    @objc get
+    @objc set(value)
+  }
+  @objc public var trackApplicationLifecycleEvents: Swift.Bool {
+    @objc get
+    @objc set(value)
+  }
+  @objc public var trackDeeplinks: Swift.Bool {
+    @objc get
+    @objc set(value)
+  }
+  @objc public var flushAt: Swift.Int {
+    @objc get
+    @objc set(value)
+  }
+  @objc public var flushInterval: Foundation.TimeInterval {
+    @objc get
+    @objc set(value)
+  }
+  @objc public var defaultSettings: [Swift.String : Any] {
+    @objc get
+    @objc set(value)
+  }
+  @objc public var autoAddOneTargetDestination: Swift.Bool {
+    @objc get
+    @objc set(value)
+  }
+  @objc public var apiHost: Swift.String {
+    @objc get
+    @objc set(value)
+  }
+  @objc public var oneTargetAppPushID: Swift.String {
+    @objc get
+    @objc set(value)
+  }
+  @objc public init(writeKey: Swift.String, flavor: Swift.String?)
+  @objc public init(writeKey: Swift.String, flavor: Swift.String?, enableIAM: Swift.Bool)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class OneTargetMonitorEvent : OneTargetMobileSDK.EventPlugin {
+  final public let type: OneTargetMobileSDK.PluginType
+  final public let timeline: OneTargetMobileSDK.Timeline
+  public var analytics: OneTargetMobileSDK.OneTargetAnalytics? {
+    get
+    set
+  }
+  public func execute<T>(event: T?) -> T? where T : OneTargetMobileSDK.RawEvent
+  public func trackNow(event: OneTargetMobileSDK.MonitorEvent) -> OneTargetMobileSDK.MonitorEvent?
+  @objc deinit
+}
+extension OneTargetMobileSDK.OneTargetMonitorEvent : OneTargetMobileSDK.VersionedPlugin {
+  public static func version() -> Swift.String
+}
+@objc(ONETARGETAnalytics) public class ObjCAnalytics : ObjectiveC.NSObject {
+  final public let analytics: OneTargetMobileSDK.OneTargetAnalytics
+  @objc public init(configuration: OneTargetMobileSDK.ObjCConfiguration, withLaunchOptions launchOptions: [Swift.AnyHashable : Any]?)
+  public init(wrapping analytics: OneTargetMobileSDK.OneTargetAnalytics)
+  @objc deinit
+}
+@objc extension OneTargetMobileSDK.ObjCAnalytics {
+  @objc(trackEventWithIdentityId:eventName:eventData:profile:) dynamic public func trackEvent(identityId: [Swift.String : Any], eventName: Swift.String, eventData: [Swift.String : Any], profile: [[Swift.String : Any]]?)
+  @objc(trackBash:properties:) dynamic public func trackBash(name: Swift.String, properties: [Swift.String : Any]?)
+}
+@objc extension OneTargetMobileSDK.ObjCAnalytics {
+  @objc dynamic public var anonymousId: Swift.String {
+    @objc get
+  }
+  @objc dynamic public var userId: Swift.String? {
+    @objc get
+  }
+  @objc dynamic public func traits() -> [Swift.String : Any]?
+  @objc dynamic public func flush()
+  @objc dynamic public func reset()
+  @objc dynamic public func settings() -> [Swift.String : Any]?
+  @objc dynamic public func version() -> Swift.String
+}
+@_hasMissingDesignatedInitializers public class StartupQueue : OneTargetMobileSDK.Plugin, OneTargetMobileSDK.Subscriber {
+  @OneTargetMobileSDK.Atomic public var running: Swift.Bool {
+    get
+    set
+    _modify
+  }
+  final public let type: OneTargetMobileSDK.PluginType
+  public var analytics: OneTargetMobileSDK.OneTargetAnalytics? {
+    get
+    set
+  }
+  public func execute<T>(event: T?) -> T? where T : OneTargetMobileSDK.RawEvent
+  @objc deinit
+}
+extension OneTargetMobileSDK.LogFilterKind : Swift.Equatable {}
+extension OneTargetMobileSDK.LogFilterKind : Swift.Hashable {}
+extension OneTargetMobileSDK.LogFilterKind : Swift.RawRepresentable {}
+extension OneTargetMobileSDK.LoggingType.LogDestination : Swift.Equatable {}
+extension OneTargetMobileSDK.LoggingType.LogDestination : Swift.Hashable {}
+extension OneTargetMobileSDK.MetricType : Swift.Equatable {}
+extension OneTargetMobileSDK.MetricType : Swift.Hashable {}
+extension OneTargetMobileSDK.MetricType : Swift.RawRepresentable {}
+extension OneTargetMobileSDK.PluginType : Swift.Equatable {}
+extension OneTargetMobileSDK.PluginType : Swift.Hashable {}
+extension OneTargetMobileSDK.PluginType : Swift.RawRepresentable {}
+extension OneTargetMobileSDK.UpdateType : Swift.Equatable {}
+extension OneTargetMobileSDK.UpdateType : Swift.Hashable {}
