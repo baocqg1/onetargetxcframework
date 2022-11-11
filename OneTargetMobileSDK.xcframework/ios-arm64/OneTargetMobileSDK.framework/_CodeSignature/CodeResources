@@ -18,7 +18,7 @@
 		</data>
 		<key>Modules/OneTargetMobileSDK.swiftmodule/arm64-apple-ios.abi.json</key>
 		<data>
-		DAp922K4M0Ni2ea013TiRfBNHUw=
+		t7dj4PyqnUwavmdtHG36AMV0kHE=
 		</data>
 		<key>Modules/OneTargetMobileSDK.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<data>
@@ -34,7 +34,7 @@
 		</data>
 		<key>Modules/OneTargetMobileSDK.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<data>
-		uCdojPIO7KgPOD402qA0yoho6lk=
+		S+q0Cju1wkknt7fjlwEJ8cHZWj4=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -61,7 +61,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			rUZnzpTAmHGugR/xD9rcbDkbbtwmotVosrZ13aOy+z0=
+			l1uBO4cR/WPrUR7qdoZtHBnhGyBiRDjRw5TFUg1VFl8=
 			</data>
 		</dict>
 		<key>Modules/OneTargetMobileSDK.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
@@ -89,7 +89,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			MMU7fAuDfO/ULBZE/Po4NPOa5pO3OqA2T3aeYjwcRDo=
+			TATkSHJBncL74s3oH6kAEJZ9tFKD3S3ON+M0gEe5Mgw=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

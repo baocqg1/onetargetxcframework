@@ -8,21 +8,13 @@
 
 Pod::Spec.new do |s|
   s.name             = 'OneTargetMobileSDK'
-  s.version          = '4.0.1'
-  s.summary          = 'OneTarget Mobile SDK for iOS'
-
-# This description is used to generate tags and improve search results.
-#   * Think: What does it do? Why did you write it? What is the focus?
-#   * Try to keep it short, snappy and to the point.
-#   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!
-
-  s.description      = 'OneTarget Mobile SDK for iOS'
-
+  s.version          = '4.0.2'
+  s.summary          = 'Service Platform Mobile SDK. Written and maintained by OneData'
+  s.description      = 'Service Platform Mobile SDK. Written and maintained by OneData. It provides APIs that allow use of OneTarget Service.'
   s.homepage         = 'https://gitlab.com/g1-data/onetarget-ios'
-  s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'developer' => 'baocq@galaxy.one' }
-  s.source           = { :git => 'https://gitlab.com/g1-data/onetarget-ios', :tag => s.version.to_s }
+  s.license          = { :type => 'Commercial', :file => 'LICENSE' }
+  s.authors           = 'OneTarget Mobile Team'
+  s.source           = { git => 'https://gitlab.com/g1-data/onetarget-ios', :tag => s.version.to_s }
   s.ios.deployment_target = '11.0'
   s.ios.vendored_frameworks = 'OneTargetMobileSDK.xcframework'
   s.dependency 'OneSignalXCFramework'
