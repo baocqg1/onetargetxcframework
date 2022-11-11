@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'OneTargetMobileSDK'
-  s.version          = '4.0.2'
+  s.version          = '4.0.3'
   s.summary          = 'Service Platform Mobile SDK. Written and maintained by OneData'
   s.description      = 'Service Platform Mobile SDK. Written and maintained by OneData. It provides APIs that allow use of OneTarget Service.'
   s.homepage         = 'https://github.com/baocqg1/onetargetxcframework'
