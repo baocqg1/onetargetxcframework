@@ -8,14 +8,13 @@
 
 Pod::Spec.new do |s|
   s.name             = 'OneTargetXCFramework'
-  s.version          = '4.0.5'
+  s.version          = '4.0.8'
   s.summary          = 'Service Platform Mobile SDK. Written and maintained by OneData'
   s.description      = 'Service Platform Mobile SDK. Written and maintained by OneData. It provides APIs that allow use of OneTarget Service.'
   s.homepage         = 'https://github.com/baocqg1/onetargetxcframework'
   s.license          = { :type => 'Commercial', :file => 'LICENSE' }
   s.authors           = 'OneTarget Mobile Team'
   s.source           = { :git => 'https://github.com/baocqg1/onetargetxcframework.git', :tag => s.version.to_s }
-  s.ios.deployment_target = '11.0'
   s.ios.vendored_frameworks = 'OneTargetMobileSDK.xcframework'
   s.dependency 'OneSignalXCFramework'
 
