@@ -17362,27 +17362,27 @@
       "filePath": "\/Users\/admin\/development\/gitlabs\/onetarget-ios\/Sources\/OneTarget\/Utilities\/HTTPClient.swift",
       "kind": "StringLiteral",
       "offset": 344,
-      "length": 20,
-      "value": "\"pixel.onetarget.vn\""
+      "length": 24,
+      "value": "\"https:\/\/pixel.cdp.link\""
     },
     {
       "filePath": "\/Users\/admin\/development\/gitlabs\/onetarget-ios\/Sources\/OneTarget\/Utilities\/HTTPClient.swift",
       "kind": "StringLiteral",
-      "offset": 401,
-      "length": 20,
-      "value": "\"dev-pixel.cdp.link\""
+      "offset": 405,
+      "length": 31,
+      "value": "\"https:\/\/api-stag.onetarget.vn\""
     },
     {
       "filePath": "\/Users\/admin\/development\/gitlabs\/onetarget-ios\/Sources\/OneTarget\/Utilities\/HTTPClient.swift",
       "kind": "StringLiteral",
-      "offset": 458,
-      "length": 25,
-      "value": "\"pixel-stag.onetarget.vn\""
+      "offset": 473,
+      "length": 28,
+      "value": "\"https:\/\/dev-pixel.cdp.link\""
     },
     {
       "filePath": "\/Users\/admin\/development\/gitlabs\/onetarget-ios\/Sources\/OneTarget\/Utilities\/HTTPClient.swift",
       "kind": "BooleanLiteral",
-      "offset": 12531,
+      "offset": 12652,
       "length": 5,
       "value": "false"
     },
@@ -17391,7 +17391,7 @@
       "kind": "StringLiteral",
       "offset": 374,
       "length": 7,
-      "value": "\"2.0.0\""
+      "value": "\"2.0.1\""
     },
     {
       "filePath": "\/Users\/admin\/development\/gitlabs\/onetarget-ios\/Sources\/OneTarget\/Configuration.swift",
@@ -17537,55 +17537,55 @@
       "filePath": "\/Users\/admin\/development\/gitlabs\/onetarget-ios\/Sources\/IAMManager\/IAMManager.swift",
       "kind": "StringLiteral",
       "offset": 476,
-      "length": 26,
-      "value": "\"https:\/\/api.onetarget.vn\""
+      "length": 27,
+      "value": "\"https:\/\/push.onetarget.vn\""
     },
     {
       "filePath": "\/Users\/admin\/development\/gitlabs\/onetarget-ios\/Sources\/IAMManager\/IAMManager.swift",
       "kind": "StringLiteral",
-      "offset": 539,
-      "length": 35,
-      "value": "\"https:\/\/api-dev.predict.marketing\""
+      "offset": 540,
+      "length": 46,
+      "value": "\"https:\/\/api-stag.onetarget.vn\/push\/push\/pull\""
     },
     {
       "filePath": "\/Users\/admin\/development\/gitlabs\/onetarget-ios\/Sources\/IAMManager\/IAMManager.swift",
       "kind": "StringLiteral",
-      "offset": 611,
-      "length": 31,
-      "value": "\"https:\/\/api-stag.onetarget.vn\""
+      "offset": 623,
+      "length": 50,
+      "value": "\"https:\/\/api-dev.predict.marketing\/push\/push\/pull\""
     },
     {
       "filePath": "\/Users\/admin\/development\/gitlabs\/onetarget-ios\/Sources\/IAMManager\/IAMManager.swift",
       "kind": "StringLiteral",
-      "offset": 812,
+      "offset": 843,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/admin\/development\/gitlabs\/onetarget-ios\/Sources\/IAMManager\/IAMManager.swift",
       "kind": "StringLiteral",
-      "offset": 902,
+      "offset": 933,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/admin\/development\/gitlabs\/onetarget-ios\/Sources\/IAMManager\/IAMManager.swift",
       "kind": "StringLiteral",
-      "offset": 1086,
+      "offset": 1117,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/admin\/development\/gitlabs\/onetarget-ios\/Sources\/IAMManager\/IAMManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 1117,
+      "offset": 1148,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/admin\/development\/gitlabs\/onetarget-ios\/Sources\/IAMManager\/IAMManager.swift",
       "kind": "IntegerLiteral",
-      "offset": 1148,
+      "offset": 1179,
       "length": 1,
       "value": "0"
     },
